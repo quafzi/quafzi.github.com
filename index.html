@@ -28,11 +28,33 @@
           <a href="https://github.com/quafzi" id="view-on-github" class="button"><span>View on GitHub</span></a>
         </section>
 
-        <hr>
+        <hr />
+
+        <nav>
+          <ul>
+            <li><a href="#updating-store-dependend-product-attributes-in-magento">Updating store-dependend product attributes in Magento</a></li>
+            <li><a href="#magento-project-based-on-composer">Magento project based on Composer</a></li>
+          </ul>
+        </nav>
+
+        <hr />
 
         <section id="main_content">
-          <h3>Hi there.</h3>
+<div id="2014-09-30T11:34:12" class="section">
+  ### Updating store-dependend product attributes in Magento
 
+  Today I was asked to fix some store-dependend product attributes programmatically. Since ``$product->save()`` is too slow, I tried ``$product->getResource()->saveAttribute(...)``, but this did not work on store level.
+
+  Finally, I found a solution:
+
+      Mage::getSingleton('catalog/product_action')->updateAttributes(
+          array($productId),
+          array('name'=>$newName, 'short_description' => $newShortDescription),
+          $storeId
+      );
+</div>
+<div id="2013-01-15T12:24:26" class="section" title="magento-project-based-on-composer">
+<h3>Magento project based on Composer</h3>
 <p>Magento development can be very hard. But it's even harder if you don't use professional tools and processes.</p>
 
 <p>So, first of all: How to create a flexible project structure?</p>
@@ -72,6 +94,7 @@ $ bin/composer.phar install --dev
 <p>But unfortunately, Magento does not like symbolic links. That's why the installer even shows up after placing a app/etc/local.xml in your project folder. The only way to fix that, is probably to copy app/Mage.php to your project folder, but I assume, that this is not the only file having problems with symlinks. So it could be a better idea to copy the whole Magento source to your project folder - but please keep in mind, that all these files will have to be ignored in Git, so they should not confuse you. As far as I know, Composer does not allow to use different deployment strategies for different dependencies, but that may change.</p>
 
 <p>That's all for now.</p>
+</div>
         </section>
 
         <footer>
@@ -81,5 +104,36 @@ $ bin/composer.phar install --dev
         
       </div>
     </div>
+    <script type="text/javascript">
+      var switchSection = function(url) {
+        active =  url.substring(url.indexOf('#')+1);
+        console.log(active)
+        $(".section").each(function(index, section){
+          section.style.display = "none";
+        });
+        if (active) {
+          $(".section h3").each(function(index, title){
+            if (title && title.innerHTML.replace(/ /g,"-").toLowerCase() == active) {
+              title.parentNode.style.display = "block";
+              } else {
+              console.log(title.innerHTML);
+              }
+          })
+        } else {
+          $(".section")[0].style.display = "block";
+        }
+      }
+      // show only one section
+      switchSection(window.location.hash);
+      // render content
+      $(".section").each(function(index, section){
+        section.innerHTML = marked(section.innerHTML).replace(/&amp;gt;/g, '>');
+      });
+      $("nav ul li a").each(function(index, navLink) {
+        navLink.onclick=function() {
+          switchSection(navLink.href);return false;
+        }
+      });
+    </script>
   </body>
 </html>
