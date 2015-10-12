@@ -32,6 +32,7 @@
 
         <nav>
           <ul>
+            <li><a href="#magento-and-varnish">Magento and Varnish</a></li>
             <li><a href="#scalar-objects">Scalar objects in PHP</a></li>
             <li><a href="#updating-store-dependend-product-attributes-in-magento">Updating store-dependend product attributes in Magento</a></li>
             <li><a href="#magento-project-based-on-composer">Magento project based on Composer</a></li>
@@ -41,6 +42,19 @@
         <hr />
 
         <section id="main_content">
+<div id="2015-10-12T10:48:08" class="section">
+  ### Magento and Varnish
+  As you may know, you can *really* speedup Magento using Varnish. To do so, I recommend Stephan Hoyer's fork of [AOE static](https://github.com/StephanHoyer/Aoe_Static):
+
+  1. Install extension using `composer` or `modman`.
+  2. Adjust settings at System→Configuration→System→Varnish Configuration.
+  3. Enable Cache at System→Cache Management.
+
+
+  I did that a couple of times, but always forgot the last step. So, keep it in mind :D
+
+  After that, your shop should run smoothly…
+</div>
 <div id="2014-10-03T21:03:28" class="section">
   ### Scalar objects
   PHP 7 will allow to register type handlers even to primitive types like strings or arrays.
