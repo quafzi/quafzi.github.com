@@ -32,6 +32,7 @@
 
         <nav>
           <ul>
+            <li><a href="#scalar-objects">Scalar objects in PHP</a></li>
             <li><a href="#updating-store-dependend-product-attributes-in-magento">Updating store-dependend product attributes in Magento</a></li>
             <li><a href="#magento-project-based-on-composer">Magento project based on Composer</a></li>
           </ul>
@@ -40,6 +41,20 @@
         <hr />
 
         <section id="main_content">
+<div id="2014-10-03T21:03:28" class="section">
+  ### Scalar objects
+  PHP 7 will allow to register type handlers even to primitive types like strings or arrays.
+  This feature was part of https://wiki.php.net/rfc/uniform_variable_syntax and is available
+  as a [PHP extension](https://github.com/nikic/scalar_objects.git) for PHP 5.7.
+
+  Due to technical limitations, it is no longer possible to create *mutable* APIs for primitive
+  types in PHP 5.6 or higher. Modifying `$this` within the methods is not possible (or rather,
+  will have no effect, as you'd just be changing a copy).
+
+  For an extension, it is not possible to allow syntax changes like ``'foo'->length``, but
+  this will be possible in PHP 7.
+
+</div>
 <div id="2014-09-30T11:34:12" class="section">
   ### Updating store-dependend product attributes in Magento
 
